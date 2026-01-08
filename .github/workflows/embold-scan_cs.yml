@@ -28,10 +28,10 @@ jobs:
       with:
         dotnet-version: 8.0.x
         
-    # FIXED STEP: Points to src/Jackett.sln
-    # If this fails, the workflow exits and will NOT run the Embold step
+    # FIXED STEP: Build only the Server project. 
+    # This avoids the error caused by the Windows-only 'Jackett.Tray' project.
     - name: Build with dotnet
-      run: dotnet build src/Jackett.sln --configuration Release
+      run: dotnet build src/Jackett.Server/Jackett.Server.csproj --configuration Release
 
     - name: Embold Analyse
       run: |
