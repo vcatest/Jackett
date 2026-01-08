@@ -26,11 +26,12 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x # UPDATED: Changed from 3.0.x to 8.0.x
+        dotnet-version: 8.0.x
         
-    # NEW STEP: Build the repository
+    # FIXED STEP: Points to src/Jackett.sln
+    # If this fails, the workflow exits and will NOT run the Embold step
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build src/Jackett.sln --configuration Release
 
     - name: Embold Analyse
       run: |
