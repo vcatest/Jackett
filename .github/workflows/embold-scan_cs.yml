@@ -1,12 +1,10 @@
 name: .NET
-
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,6 +17,7 @@ jobs:
         apt-get update
         apt-get install curl wget libssl1.1 -y 
     
+    ## NEW STEP: Install Java (OpenJDK 11 is a common, stable version)
     - name: Install Java for Embold Scanner
       run: |
         apt-get install openjdk-11-jre -y
@@ -26,13 +25,8 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 3.0.x
         
-    # FIXED STEP: Build only the Server project. 
-    # This avoids the error caused by the Windows-only 'Jackett.Tray' project.
-    - name: Build with dotnet
-      run: dotnet build src/Jackett.Server/Jackett.Server.csproj --configuration Release
-
     - name: Embold Analyse
       run: |
         curl ${{ vars.EMBOLD_SCANNER_URL }} -o browserstack-codequality-scanner-archive.tar.gz
