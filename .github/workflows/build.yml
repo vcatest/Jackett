@@ -36,6 +36,7 @@ jobs:
         
     ## NEW: Start SonarScanner (Hook into build)
     - name: SonarScanner Begin
+      working-directory: ./src
       # Note: Replace "your_organization_key" with your actual SonarCloud organization key
       run: dotnet sonarscanner begin /k:"vcatest_Jackett" /o:"vcatest" /d:sonar.token="96776fa54a595ed6a86cfb00e41cf351b5af5c0e" /d:sonar.host.url="https://sonarcloud.io/"
       
